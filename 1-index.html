@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الدرس 2: التركيب الإلكتروني وحالات التأكسد — تفاعلي</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Tahoma,Arial,sans-serif;background:#f0f4f8;color:#1a202c;line-height:1.8;font-size:16px;padding-bottom:40px}
+header{background:linear-gradient(135deg,#0d3b66,#1464a0);color:#fff;padding:18px 14px;text-align:center}
+header h1{font-size:19px;margin-bottom:4px}
+header p{font-size:13px;opacity:.9}
+.src{display:inline-block;background:rgba(255,255,255,.18);border-radius:8px;padding:2px 10px;font-size:12px;margin-top:6px}
+nav{display:flex;flex-wrap:wrap;gap:6px;padding:8px;background:#fff;position:sticky;top:0;z-index:9;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+nav button{flex:1 1 46%;border:2px solid #1464a0;background:#fff;color:#0d3b66;border-radius:10px;padding:8px 2px;font-size:13px;font-weight:bold;font-family:inherit;cursor:pointer}
+nav button.on{background:#1464a0;color:#fff}
+.tab{display:none;padding:12px}
+.tab.on{display:block}
+.card{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.card h2{font-size:16px;color:#0d3b66;margin-bottom:6px}
+.pg{display:inline-block;background:#e8f0fe;color:#0d3b66;border-radius:6px;font-size:11px;padding:1px 8px;font-weight:bold}
+.eq{direction:ltr;text-align:center;background:#f7fafc;border-radius:8px;padding:6px;font-size:17px;margin:6px 0;font-family:'Times New Roman',serif}
+sub,sup{font-size:.68em}
+.note{background:#fff8e1;border-right:4px solid #f0b429;border-radius:8px;padding:8px 10px;font-size:14px;margin:8px 0}
+.ans{background:#e6ffed;border:1px dashed #2f9e44;border-radius:10px;padding:10px;margin-top:8px;display:none;font-size:14px}
+.reveal{display:block;width:100%;margin-top:8px;background:#edf2f7;border:1px solid #b8c4d0;border-radius:8px;padding:8px;font-size:14px;color:#2d3748;cursor:pointer;font-family:inherit}
+table{width:100%;border-collapse:collapse;font-size:13px;text-align:center;margin:6px 0}
+th,td{border:1px solid #cbd5e0;padding:4px 3px}
+th{background:#0d3b66;color:#fff;font-size:12px}
+tr.hl td{background:#fff3bf;font-weight:bold}
+.btn{background:#1464a0;color:#fff;border:none;border-radius:10px;padding:10px 18px;font-size:15px;font-weight:bold;font-family:inherit;cursor:pointer}
+.btn:active{transform:scale(.97)}
+.ghost{background:#e2e8f0;color:#2d3748}
+.stepper{display:flex;align-items:center;justify-content:center;gap:14px;margin:8px 0}
+.stepper button{width:46px;height:46px;border-radius:50%;border:2px solid #1464a0;background:#fff;color:#0d3b66;font-size:22px;font-weight:bold;cursor:pointer}
+.stepper .val{font-size:26px;font-weight:bold;min-width:56px;text-align:center;color:#0d3b66}
+.species{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.species button{border:1.5px solid #94a3b8;background:#fff;border-radius:8px;padding:6px 10px;font-size:15px;cursor:pointer;font-family:inherit}
+.species button.on{background:#0d3b66;color:#fff;border-color:#0d3b66}
+.fb{border-radius:10px;padding:10px;margin-top:10px;display:none;font-size:14px;font-weight:bold}
+.fb.ok{display:block;background:#e6ffed;color:#237032;border:1px solid #51cf66}
+.fb.no{display:block;background:#fff0f0;color:#c92a2a;border:1px solid #ff8787}
+.tubes{display:flex;justify-content:space-around;margin:10px 0}
+.tube{width:56px;text-align:center;cursor:pointer}
+.tube .glass{width:40px;height:120px;margin:0 auto;border:3px solid #94a3b8;border-top:none;border-radius:0 0 14px 14px;background:#e9edf2;position:relative;overflow:hidden}
+.tube .liq{position:absolute;bottom:0;left:0;right:0;height:70%;background:#cfd8e3;transition:background .3s}
+.tube small{display:block;margin-top:4px;font-size:11px;direction:ltr}
+.opt{display:block;width:100%;text-align:right;background:#f7fafc;border:1.5px solid #cbd5e0;border-radius:10px;padding:10px;margin:6px 0;font-size:15px;cursor:pointer;font-family:inherit}
+.opt.right{background:#e6ffed;border-color:#2f9e44}
+.opt.wrong{background:#fff0f0;border-color:#e03131}
+.qcard{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.qcard h3{font-size:15px;margin-bottom:8px;color:#0d3b66}
+.score{text-align:center;font-size:18px;font-weight:bold;color:#0d3b66;margin:10px 0}
+footer{text-align:center;font-size:11.5px;color:#64748b;padding:14px;line-height:1.7}
+</style>
+</head>
+<body>
+<header>
+<h1>العناصر الانتقالية — الدرس الثاني</h1>
+<p>التركيب الإلكتروني وحالات التأكسد • كيمياء 3 ثانوي • الباب الأول</p>
+<span class="src">المصدر: كتاب الشرح (الكيمياء العامة) — الجزء الأول 2027 — ص 19–26</span>
+</header>
+<nav>
+<button data-t="explain" class="on">الشرح</button>
+<button data-t="config">تمرين التركيب</button>
+<button data-t="colors">تجربة الألوان</button>
+<button data-t="quiz">اختبر نفسك</button>
+</nav>
+<div id="explain" class="tab on">
+<div class="card"><h2>التركيب الإلكتروني العام للسلسلة الانتقالية الأولى <span class="pg">ص 19</span></h2>
+<div class="eq">[₁₈Ar] ‏ 4s<sup>1→2</sup> , 3d<sup>1→10</sup></div>
+<p>يُملأ المستوى الفرعي <b>4s أولاً</b> ثم تتتابع إلكترونات <b>3d</b>. يبدأ السكانديوم ₂₁Sc بشغل أوربيتالات 3d بإلكترون مفرد 3d¹، وتُشغل الأوربيتالات فرادى أولاً (قاعدة هوند) حتى المنجنيز 3d⁵ ثم يبدأ الازدواج حتى الخارصين 3d¹⁰.</p></div>
+<div class="card"><h2>لماذا يشذّ الكروم والنحاس؟ <span class="pg">ص 19</span></h2>
+<div class="eq">₂₄Cr : [₁₈Ar] ‏ 4s<sup>1</sup> , 3d<sup>5</sup> &nbsp;&nbsp;|&nbsp;&nbsp; ₂₉Cu : [₁₈Ar] ‏ 4s<sup>1</sup> , 3d<sup>10</sup></div>
+<p>الذرة تكون أكثر استقراراً عندما يكون المستوى d <b>نصف ممتلئ (3d⁵)</b> أو <b>ممتلئ تماماً (3d¹⁰)</b>.</p>
+<div class="note">أيونات مستقرة شائعة: 3d⁰ مثل Sc³⁺ وTi⁴⁺ • 3d⁵ مثل Mn²⁺ وFe³⁺ • 3d¹⁰ مثل Cu⁺ وZn²⁺</div></div>
+<div class="card"><h2>عند التأكسد: أي إلكترون يُفقد أولاً؟ <span class="pg">ص 20</span></h2>
+<p>تُفقد إلكترونات <b>4s أولاً</b> (الأبعد عن النواة) ثم إلكترونات <b>3d</b> بالتتابع.</p>
+<div class="eq">₂₆Fe : [Ar] 4s<sup>2</sup>3d<sup>6</sup> ← Fe<sup>2+</sup> : [Ar] 3d<sup>6</sup> ← Fe<sup>3+</sup> : [Ar] 3d<sup>5</sup></div></div>
+<div class="card"><h2>سهولة أكسدة Fe²⁺ وصعوبة أكسدة Mn²⁺ <span class="pg">ص 20</span></h2>
+<p><b>يسهل</b> أكسدة Fe²⁺ ‏(3d⁶ أقل استقراراً) إلى Fe³⁺ ‏(3d⁵ نصف ممتلئ — أكثر استقراراً)، لذلك يتجه التفاعل نحو تكوين التركيب الأكثر استقراراً.</p>
+<p><b>يصعب</b> أكسدة Mn²⁺ ‏(3d⁵ نصف ممتلئ — أكثر استقراراً) إلى Mn³⁺ ‏(3d⁴ أقل استقراراً).</p>
+<button class="reveal" data-a="a1">استنتاج الكتاب (اضغط للعرض)</button>
+<div class="ans" id="a1">يُستنتج أيضاً أنه <b>يصعب اختزال Fe³⁺ إلى Fe²⁺</b> لأن Fe³⁺ ‏(3d⁵ نصف ممتلئ) هو الأكثر استقراراً، <b>ويسهل اختزال Mn³⁺ إلى Mn²⁺</b> لأن Mn²⁺ ‏(3d⁵) هو الأكثر استقراراً.</div></div>
+<div class="card"><h2>حالات التأكسد لعناصر السلسلة الأولى <span class="pg">ص 22</span></h2>
+<table><tr><th>العنصر</th><th>Sc</th><th>Ti</th><th>V</th><th>Cr</th><th>Mn</th><th>Fe</th><th>Co</th><th>Ni</th><th>Cu</th><th>Zn</th></tr>
+<tr><td>حالات التأكسد</td><td>3</td><td>2,3,4</td><td>2→5</td><td>2,3,6</td><td>2→7</td><td>2,3</td><td>2,3</td><td>2</td><td>1,2</td><td>2</td></tr>
+<tr class="hl"><td>الأكثر شيوعاً</td><td>3</td><td>4</td><td>5</td><td>3,6</td><td>2,7</td><td>2,3</td><td>2</td><td>2</td><td>2</td><td>2</td></tr></table>
+<div class="note">١) النحاس هو العنصر الوحيد في السلسلة الذي يعطي حالة تأكسد +1. ٢) كل العناصر تعطي +2 ما عدا السكانديوم (+3 فقط). ٣) أقصى حالة تأكسد تساوي رقم المجموعة حتى المنجنيز (7B) ثم تتناقص حتى الخارصين (+2 فقط).</div></div>
+<div class="card"><h2>لماذا تتعدد حالات التأكسد؟ <span class="pg">ص 23</span></h2>
+<p>لتقارب طاقة المستويين الفرعيين <b>4s و3d</b>، فيمكن أن تفقد الذرة إلكترونات منهما معاً عند تأكسدها: تفقد 4s أولاً ثم 3d. وهذا يؤدي أيضاً لتقارب جهود التأين المتتالية لذرات السلسلة الأولى.</p></div>
+<div class="card"><h2>طاقات التأين المتتالية والقفزة <span class="pg">ص 23–25</span></h2>
+<p>طاقات التأين المتتالية لعناصر السلسلة تزداد <b>بتدرج</b> لتقارب طاقتي 4s و3d. أما الفلزات الممثلة فتظهر <b>قفزة كبيرة</b> عند محاولة كسر مستوى طاقة مكتمل:</p>
+<table><tr><th>الفلز</th><th>الأولى</th><th>الثانية</th><th>الثالثة</th><th>الرابعة</th></tr>
+<tr><td>₁₁Na</td><td>496</td><td class="hl">4562</td><td>6910</td><td>—</td></tr>
+<tr><td>₁₂Mg</td><td>738</td><td>1451</td><td class="hl">7733</td><td>10542</td></tr>
+<tr><td>₁₃Al</td><td>578</td><td>1811</td><td>2745</td><td class="hl">11540</td></tr></table>
+<p style="font-size:13px;color:#64748b">القيم التقريبية بوحدة KJ/mol — القفزة (المظللة في الكتاب) عند كسر مستوى مكتمل.</p>
+<button class="reveal" data-a="a2">لماذا لا نحصل على Na²⁺ أو Mg³⁺ أو Al⁴⁺؟</button>
+<div class="ans" id="a2">لأن ذلك يتطلب كسر مستوى طاقة مكتمل بالإلكترونات، ويحتاج طاقة كبيرة جداً لا تتوفر في ظروف التفاعل العادي. قيمة طاقة التأين التي تسبب في كسر مستوى مكتمل = رقم العمود + 1.</div></div>
+<div class="card"><h2>عدد التأكسد وصفة الأكسيد <span class="pg">ص 25</span></h2>
+<p>كلما <b>زاد عدد تأكسد</b> أيون العنصر الانتقالي في أكسيده <b>قلّت الصفة القاعدية وزادت الصفة الحامضية</b>:</p>
+<table><tr><th>الأكسيد</th><th>MnO</th><th>Mn₂O₃</th><th>MnO₂</th><th>MnO₃</th><th>Mn₂O₇</th></tr>
+<tr><td>عدد التأكسد</td><td>+2</td><td>+3</td><td>+4</td><td>+6</td><td>+7</td></tr>
+<tr><td>الصفة</td><td>قاعدي</td><td>قاعدي ضعيف</td><td>متردد</td><td>حامضي</td><td>حامضي قوي</td></tr></table>
+<table><tr><th>الأكسيد</th><th>CrO</th><th>Cr₂O₃</th><th>CrO₃</th></tr>
+<tr><td>عدد التأكسد</td><td>+2</td><td>+3</td><td>+6</td></tr>
+<tr><td>الصفة</td><td>قاعدي</td><td>متردد</td><td>حامضي</td></tr></table></div>
+<div class="card"><h2>العامل المؤكسد والعامل المختزل <span class="pg">ص 26</span></h2>
+<p>فلزات d لا تعطي حالات تأكسد سالبة → تعمل <b>عوامل مختزلة فقط</b>. أما أيوناتها فقد تكون مؤكسدة أو مختزلة حسب حالات تأكسدها:</p>
+<p>• أيونات Fe³⁺ وCr⁶⁺ وMn⁷⁺: في أعلى حالاتها المدروسة في المنهج → تسلك سلوك <b>العامل المؤكسد فقط</b> (تُختزل ولا تتأكسد ضمن هذه الحالات).</p>
+<p>• أيونات مثل Mn³⁺ وCu⁺: في حالة وسطى → قد تسلك سلوك المؤكسد <b>أو</b> المختزل.</p>
+<div class="eq">Cu<sup>+</sup> → Cu<sup>2+</sup> + e<sup>-</sup> (مختزل) &nbsp;•&nbsp; Cu<sup>+</sup> + e<sup>-</sup> → Cu<sup>0</sup> (مؤكسد)</div></div>
+<div class="card"><h2>تعريف العنصر الانتقالي <span class="pg">ص 26</span></h2>
+<p>هو العنصر الذي تكون فيه أوربيتالات <b>d أو f مشغولة بإلكترونات وغير مكتملة</b> سواء في الحالة الذرية أو في أي حالة من حالات تأكسده.</p>
+<button class="reveal" data-a="a3">لماذا مجموعة IB (النحاس والفضة والذهب) انتقالية بينما IIB (الخارصين والكادميوم والزئبق) ليست كذلك؟</button>
+<div class="ans" id="a3">فلزات IB: في حالة التأكسد +2 أو +3 يكون المستوى d مشغولاً غير ممتلئ (مثل Cu²⁺ ‏3d⁹) → عناصر انتقالية. أما فلزات IIB: في حالتها الذرية وفي حالة التأكسد +2 يكون المستوى d ممتلئاً تماماً (3d¹⁰) → ليست عناصر انتقالية.</div></div>
+</div>
+<div id="config" class="tab">
+<div class="card"><h2>تمرين: اكتب التركيب الإلكتروني <span class="pg">ص 19–20</span></h2>
+<p>اختر الذرة أو الأيون، ثم حدّد عدد إلكترونات 4s و3d، واضغط «تحقق». تذكّر: الملء 4s أولاً ثم 3d — والفقد من 4s أولاً ثم 3d.</p>
+<div class="species" id="species"></div>
+<div class="eq" id="target"></div>
+<p style="text-align:center;font-weight:bold">عدد إلكترونات 4s</p>
+<div class="stepper"><button id="sMinus">−</button><span class="val" id="sVal">0</span><button id="sPlus">+</button></div>
+<p style="text-align:center;font-weight:bold">عدد إلكترونات 3d</p>
+<div class="stepper"><button id="dMinus">−</button><span class="val" id="dVal">0</span><button id="dPlus">+</button></div>
+<div style="text-align:center"><button class="btn" id="checkCfg">تحقق</button></div>
+<div class="fb" id="cfgFb"></div></div>
+</div>
+<div id="colors" class="tab">
+<div class="card"><h2>تجربة الكتاب: ألوان محاليل كبريتات الحديد والمنجنيز <span class="pg">ص 21</span></h2>
+<p>اضغط على كل أنبوبة لتكشف المحلول ولونه، ثم اكتشف ماذا يحدث في التجربتين (نتائج مسجلة من الكتاب — لا تُجرَ التجربة في المنزل).</p>
+<div class="tubes">
+<div class="tube" data-c="#b5e3b0" data-n="FeSO₄ — أخضر فاتح"><div class="glass"><div class="liq"></div></div><small>Tube 1</small></div>
+<div class="tube" data-c="#ffd54d" data-n="Fe₂(SO₄)₃ — أصفر"><div class="glass"><div class="liq"></div></div><small>Tube 2</small></div>
+<div class="tube" data-c="#f7c6d9" data-n="MnSO₄ — وردي"><div class="glass"><div class="liq"></div></div><small>Tube 3</small></div>
+<div class="tube" data-c="#b07cc6" data-n="Mn₂(SO₄)₃ — بنفسجي"><div class="glass"><div class="liq"></div></div><small>Tube 4</small></div>
+</div>
+<div class="fb" id="tubeFb" style="text-align:center"></div>
+<button class="reveal" data-a="a4">التجربة الأولى: تركت الأنابيب الأربعة في الهواء الجوي فترة — ماذا يحدث؟</button>
+<div class="ans" id="a4">يتغير لون <b>الأنبوبة رقم 1 فقط</b>: يتأكسد أيون Fe²⁺ بأكسجين الهواء إلى Fe³⁺ الأكثر استقراراً (3d⁵ نصف ممتلئ) فيتغير اللون من الأخضر الفاتح إلى الأصفر.</div>
+<button class="reveal" data-a="a5">التجربة الثانية: أُضيفت برادة حديد وحمض كبريتيك مخفف — ماذا يحدث؟</button>
+<div class="ans" id="a5">يتغير لون <b>الأنبوبتين 2 و4</b>: الهيدروجين النشأ (المتولد من تفاعل الحديد مع الحمض المخفف: Fe + H₂SO₄ → FeSO₄ + H₂) عامل مختزل قوي، فيختزل Fe³⁺ إلى Fe²⁺ وMn³⁺ إلى Mn²⁺ (الأكثر استقراراً 3d⁵)، فيعود لون المحلولين للأخضر الفاتح والوردي.</div></div>
+</div>
+<div id="quiz" class="tab">
+<div class="score" id="score"></div>
+<div id="quizBox"></div>
+<div style="text-align:center;margin-top:10px"><button class="btn ghost" id="retry">إعادة الاختبار</button></div>
+</div>
+<footer>
+نسخة تفاعلية تجريبية من درس واحد فقط — المصدر: كتاب الشرح «الكيمياء العامة» الجزء الأول (3 ثانوي، 2027)، الباب الأول، الدرس الثاني، الصفحات 19–26.<br>
+أُعدّت للاستخدام الخاص من نسخة الطالب — ليست للنشر أو التوزيع. تعمل دون اتصال بالإنترنت.
+</footer>
+<script>
+// tabs
+var tabs=document.querySelectorAll('nav button'),panels=document.querySelectorAll('.tab');
+function showTab(id){tabs.forEach(function(b){b.classList.toggle('on',b.dataset.t===id)});panels.forEach(function(p){p.classList.toggle('on',p.id===id)})}
+tabs.forEach(function(b){b.onclick=function(){showTab(b.dataset.t)}});
+// reveal answers
+document.querySelectorAll('.reveal').forEach(function(b){b.onclick=function(){var el=document.getElementById(b.dataset.a);el.style.display=el.style.display==='block'?'none':'block'}});
+// electron config exercise
+var DATA=[
+ {n:'₂₁Sc',s:2,d:1},{n:'₂₄Cr',s:1,d:5,why:'شاذ: 3d⁵ نصف ممتلئ أكثر استقراراً'},{n:'₂₅Mn',s:2,d:5},
+ {n:'₂₆Fe',s:2,d:6},{n:'₂₉Cu',s:1,d:10,why:'شاذ: 3d¹⁰ ممتلئ تماماً أكثر استقراراً'},{n:'₃₀Zn',s:2,d:10},
+ {n:'\u2066Fe²⁺\u2069',s:0,d:6,why:'يفقد 4s أولاً'},{n:'\u2066Fe³⁺\u2069',s:0,d:5,why:'يفقد 4s² ثم إلكترون من 3d — 3d⁵ نصف ممتلئ'},
+ {n:'Mn²⁺',s:0,d:5,why:'يفقد 4s² — 3d⁵ نصف ممتلئ'},{n:'\u2066Cu⁺\u2069',s:0,d:10,why:'يفقد إلكترون 4s — 3d¹⁰ ممتلئ'},
+ {n:'Zn²⁺',s:0,d:10,why:'يفقد 4s² — 3d¹⁰ ممتلئ'},{n:'Ti⁴⁺',s:0,d:0,why:'يفقد 4s² و3d² — يصبح [Ar]  3d⁰'}
+];
+var cur=0,s=0,d=0;
+var spBox=document.getElementById('species');
+DATA.forEach(function(o,i){var b=document.createElement('button');b.textContent='\u2066'+o.n+'\u2069';b.onclick=function(){cur=i;s=0;d=0;drawCfg();spBox.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');var f=document.getElementById('cfgFb');f.className='fb';f.textContent=''};spBox.appendChild(b)});
+function drawCfg(){document.getElementById('target').innerHTML='اكتب التركيب الإلكتروني لـ: \u2066'+DATA[cur].n+'\u2069';document.getElementById('sVal').textContent=s;document.getElementById('dVal').textContent=d}
+document.getElementById('sPlus').onclick=function(){if(s<2){s++;drawCfg()}};
+document.getElementById('sMinus').onclick=function(){if(s>0){s--;drawCfg()}};
+document.getElementById('dPlus').onclick=function(){if(d<10){d++;drawCfg()}};
+document.getElementById('dMinus').onclick=function(){if(d>0){d--;drawCfg()}};
+document.getElementById('checkCfg').onclick=function(){var o=DATA[cur],f=document.getElementById('cfgFb');
+ if(s===o.s&&d===o.d){f.className='fb ok';f.innerHTML='✔ صحيح: '+o.n+' : [Ar]  4s<sup>'+o.s+'</sup> 3d<sup>'+o.d+'</sup>'+(o.why?' — '+o.why:'')}
+ else{f.className='fb no';f.innerHTML='✘ غير صحيح. الصحيح: 4s<sup>'+o.s+'</sup>  3d<sup>'+o.d+'</sup>'+(o.why?' — '+o.why:'')+' — تذكّر: الملء 4s ثم 3d، والفقد من 4s أولاً'}};
+spBox.children[0].classList.add('on');drawCfg();
+// tubes
+document.querySelectorAll('.tube').forEach(function(t){t.onclick=function(){t.querySelector('.liq').style.background=t.dataset.c;var f=document.getElementById('tubeFb');f.className='fb ok';f.textContent=t.dataset.n}});
+// quiz
+var QUIZ=[
+ {q:'التركيب الإلكتروني الصحيح لذرة الكروم ₂₄Cr هو:',o:['[Ar]  4s² 3d⁴','[Ar]  4s¹ 3d⁵','[Ar]  4s² 3d⁶','[Ar]  4s¹ 3d⁴'],c:1,w:'الكروم شاذ: 4s¹3d⁵ لأن المستوى d نصف الممتلئ أكثر استقراراً (ص 19).'},
+ {q:'التركيب الإلكتروني لذرة النحاس ₂₉Cu:',o:['[Ar]  4s² 3d⁹','[Ar]  4s¹ 3d¹⁰','[Ar]  4s² 3d¹⁰','[Ar]  4s¹ 3d⁹'],c:1,w:'النحاس شاذ: 4s¹3d¹⁰ لأن الامتلاء التام لـ3d أكثر استقراراً (ص 19).'},
+ {q:'تركيب أيون Fe³⁺ هو:',o:['[Ar]  4s² 3d³','[Ar]  3d⁵','[Ar]  4s¹ 3d⁴','[Ar]  3d⁶'],c:1,w:'تُفقد إلكترونات 4s أولاً ثم 3d: Fe (4s²3d⁶) ← Fe³⁺  (3d⁵ نصف ممتلئ — أكثر استقراراً) (ص 20).'},
+ {q:'يسهل أكسدة أيون الحديد II إلى أيون الحديد III لأن:',o:['Fe²⁺ أكثر استقراراً من Fe³⁺','Fe³⁺ تركيبه 3d⁵ نصف ممتلئ أكثر استقراراً','Fe²⁺ يفقد إلكتروناً من 3d أولاً','حجم Fe³⁺ أصغر'],c:1,w:'Fe²⁺  (3d⁶) أقل استقراراً، وFe³⁺  (3d⁵ نصف ممتلئ) أكثر استقراراً فيسهل التحول إليه (ص 20).'},
+ {q:'عدد تأكسد المنجنيز في KMnO₄ يساوي:',o:['+2','+4','+6','+7'],c:3,w:'+1(K)  + Mn + 4×(−2) = 0 ← Mn = +7، وهي أقصى حالة للمنجنيز وتساوي رقم مجموعته 7B (ص 22).'},
+ {q:'العنصر الوحيد في السلسلة الانتقالية الأولى الذي يعطي حالة تأكسد +1 هو:',o:['الحديد','النحاس','الخارصين','السكانديوم'],c:1,w:'النحاس: لأن فقد إلكترون 4s وحده يعطي Cu⁺ بتركيب 3d¹⁰ المستقر (ص 22).'},
+ {q:'أكسيد المنجنيز MnO₂ صفته:',o:['قاعدي','قاعدي ضعيف','متردد (أمفوتيري)','حامضي قوي'],c:2,w:'كلما زاد عدد التأكسد زادت الحمضية: MnO قاعدي ← MnO₂ متردد ← Mn₂O₇ حامضي قوي (ص 25).'},
+ {q:'ضمن حالات التأكسد المدروسة في المنهج، أيون يعمل عاملاً مؤكسداً فقط:',o:['\u2066Cu⁺\u2069','\u2066Mn³⁺\u2069','\u2066Fe³⁺\u2069','\u2066Fe²⁺\u2069'],c:2,w:'بحسب الكتاب ضمن حالات المنهج: Fe³⁺ في أعلى حالاته المدروسة فيُختزل فقط؛ أما Cu⁺ وMn³⁺ في حالة وسطى فقد يعملان مؤكسداً أو مختزلاً (ص 26).'},
+ {q:'الخارصين لا يُعد عنصراً انتقالياً لأن:',o:['لا يعطي أيونات ملونة فقط','مستواه 3d ممتلئ في ذرته وفي أيونه Zn²⁺','لا يتفاعل مع الأحماض','يقع في نهاية الجدول'],c:1,w:'تعريف العنصر الانتقالي: أوربيتالات d غير مكتملة في الذرة أو أحد أيوناته — وZn /Zn²⁺ دائماً 3d¹⁰ (ص 26).'},
+ {q:'أيون M⁴⁺ تركيبه [Ar]  3d³، فالعدد الذري لعنصره:',o:['23','25','21','27'],c:1,w:'18 + 3 (موجودة) + 4 (مفقودة) = 25 ← المنجنيز (ص 20).'},
+ {q:'أعلى العناصر التالية في طاقة التأين الأولى:',o:['Sc','Ti','V','Ni'],c:3,w:'مثال الكتاب نفسه (ص 23): عبر السلسلة تزداد الشحنة النووية الفعالة فتزداد طاقة التأين الأولى تدريجياً، ومن بين الأربعة الأكبر للنيكل — وجدول الكتاب (ص 24) يوضح: Sc‏ ‏633، Ti‏ ‏659، V‏ ‏648، Ni‏ ‏737 ‏KJ/mol.'},
+ {q:'عناصر مجموعة IB (Cu, Ag, Au) تُعد انتقالية لأن:',o:['مستواها d ممتلئ دائماً','أيوناتها مثل Cu²⁺ فيها 3d غير مكتمل','تعطي حالة تأكسد واحدة','فلزات نفيسة'],c:1,w:'Cu²⁺ تركيبه 3d⁹ — d مشغول غير ممتلئ في إحدى حالات التأكسد فيتحقق التعريف (ص 26).'}
+];
+var answered=0,right=0;
+function buildQuiz(){answered=0;right=0;document.getElementById('score').textContent='';var box=document.getElementById('quizBox');box.innerHTML='';
+ QUIZ.forEach(function(qq,qi){var div=document.createElement('div');div.className='qcard';
+  div.innerHTML='<h3>س'+(qi+1)+': '+qq.q+'</h3>';
+  qq.o.forEach(function(opt,oi){var b=document.createElement('button');b.className='opt';b.innerHTML='\u2066'+opt+'\u2069';
+   b.onclick=function(){if(div.dataset.done)return;div.dataset.done='1';answered++;
+    if(oi===qq.c){right++;b.classList.add('right')}else{b.classList.add('wrong');div.querySelectorAll('.opt')[qq.c].classList.add('right')}
+    var ex=document.createElement('div');ex.className='note';ex.style.display='block';ex.textContent='التفسير: '+qq.w;div.appendChild(ex);
+    if(answered===QUIZ.length)document.getElementById('score').textContent='النتيجة: '+right+' من '+QUIZ.length+(right>=10?' — ممتاز!':right>=7?' — جيد، راجع الأخطاء':' — أعد قراءة الشرح وحاول مجدداً')};
+   div.appendChild(b)});box.appendChild(div)})}
+document.getElementById('retry').onclick=buildQuiz;buildQuiz();
+// deep-link tab + self test
+var h=location.hash;
+if(h.indexOf('tab=')>-1){var t=h.match(/tab=(\w+)/)[1];if(document.getElementById(t))showTab(t)}
+if(h.indexOf('ansdemo')>-1){document.getElementById('species').children[1].click();document.getElementById('sPlus').click();for(var i=0;i<5;i++)document.getElementById('dPlus').click();document.getElementById('checkCfg').click()}
+if(h.indexOf('selftest')>-1){var out=[];
+ function T(name,cond){out.push((cond?'PASS ':'FAIL ')+name)}
+ T('tabs=4',document.querySelectorAll('nav button').length===4);
+ T('quiz questions=12',document.querySelectorAll('.qcard').length===12);
+ T('options per q=4',document.querySelectorAll('.qcard')[0].querySelectorAll('.opt').length===4);
+ T('species=12',document.getElementById('species').children.length===12);
+ T('reveals=5',document.querySelectorAll('.reveal').length===5);
+ T('tubes=4',document.querySelectorAll('.tube').length===4);
+ // simulate: answer Q1 correctly
+ document.querySelectorAll('.qcard')[0].querySelectorAll('.opt')[1].click();
+ T('q1 right marked',document.querySelectorAll('.qcard')[0].querySelectorAll('.opt')[1].classList.contains('right'));
+ T('explain shown',document.querySelectorAll('.qcard')[0].querySelectorAll('.note').length===1);
+ // simulate config: select Cr (index1) and set s=1,d=5
+ document.getElementById('species').children[1].click();
+ document.getElementById('sPlus').click();for(var i=0;i<5;i++)document.getElementById('dPlus').click();
+ document.getElementById('checkCfg').click();
+ T('Cr config accepted',document.getElementById('cfgFb').className==='fb ok');
+ // wrong check: select Sc (0) without changing (s=1,d=5 wrong)
+ document.getElementById('species').children[0].click();document.getElementById('checkCfg').click();
+ T('wrong config rejected',document.getElementById('cfgFb').className==='fb no');
+ // tube reveal
+ document.querySelectorAll('.tube')[0].click();
+ T('tube reveals name',document.getElementById('tubeFb').textContent.indexOf('FeSO₄')>-1);
+ // reveal button
+ document.querySelectorAll('.reveal')[0].click();
+ T('reveal opens',document.getElementById('a1').style.display==='block');
+ var pre=document.createElement('pre');pre.id='selftest';pre.style.cssText='position:fixed;top:0;left:0;background:#000;color:#0f0;z-index:99;padding:8px;font-size:12px;direction:ltr';
+ pre.textContent=out.join('\n');document.body.appendChild(pre)}
+</script>
+</body>
+</html>
